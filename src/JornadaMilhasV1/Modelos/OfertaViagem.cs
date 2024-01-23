@@ -5,54 +5,39 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JornadaMilhasV1.Modelos;
-public class OfertaViagem
+public class OfertaViagem: IValidavel
 {
     public int Id { get; set; }
     public Rota Rota { get; set; }
-    public DateTime DataIda { get; set; }
-    public DateTime DataVolta { get; set; }
+    public Periodo Periodo { get; set; }
     public double Preco { get; set; }
-    private bool valido = false;
 
-    public OfertaViagem(Rota rota, DateTime dataIda, DateTime dataVolta, double preco)
+    public OfertaViagem(Rota rota, Periodo periodo, double preco)
     {
         Rota = rota;
-        DataIda = dataIda;
-        DataVolta = dataVolta;
+        Periodo = periodo;
         Preco = preco;
-        this.EhValido();
+        Validar();
     }
 
     public override string ToString()
     {
-        return $"Origem: {Rota.Origem}, Destino: {Rota.Destino}, Data de Ida: {DataIda.ToShortDateString()}, Data de Volta: {DataVolta.ToShortDateString()}, Preço: {Preco:C}";
+        return $"Origem: {Rota.Origem}, Destino: {Rota.Destino}, Data de Ida: {Periodo.DataInicial.ToShortDateString()}, Data de Volta: {Periodo.DataFinal.ToShortDateString()}, Preço: {Preco:C}";
     }
 
-    public bool EhValido()
+    public bool Validar()
     {
-        if (this.Rota == null)
+        if (Rota == null || Periodo == null)
         {
-            throw new FormatException("A rota não pode ser nula.");
-        }
-        else if ((this.Rota.Origem is null) || this.Rota.Origem.Equals(string.Empty))
+            Console.WriteLine("A oferta de viagem não possui rota ou período válidos.");
+            return false;
+        } 
+        else if (Preco <= 0)
         {
-            throw new FormatException("A rota não pode possuir uma origem nula ou vazia.");
+            Console.WriteLine("O preço da oferta de viagem deve ser maior que zero.");
+            return false;
         }
-        else if ((this.Rota.Destino is null) || this.Rota.Destino.Equals(string.Empty))
-        {
-            throw new FormatException("A rota não pode possuir um destino nulo ou vazio.");
-        }
-        else if (this.DataIda > this.DataVolta)
-        {
-            throw new FormatException("Data de ida não pode ser maior que a data de volta.");
-        }
-        else if (this.Preco <= 0)
-        {
-            throw new FormatException("Preço da oferta não pode ser menor que zero.");
-        }
-        else
-            valido = true;
 
-        return valido;
+        return true;
     }
 }
