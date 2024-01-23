@@ -39,10 +39,6 @@ public class GerenciadorDeOfertas
             Console.WriteLine("Data de volta inválida.");
             return;
         }
-        /*        } else if (dataVolta < dataIda) {
-                    Console.WriteLine("Data de volta inválida.");
-                    return;
-                }*/
 
         Console.WriteLine("Informe o preço: ");
         double preco;
@@ -52,7 +48,7 @@ public class GerenciadorDeOfertas
             return;
         }
 
-        OfertaViagem ofertaCadastrada = new OfertaViagem(new Rota(origem, destino), dataIda, dataVolta, preco);
+        OfertaViagem ofertaCadastrada = new OfertaViagem(new Rota(origem, destino), new Periodo(dataIda, dataVolta), preco);
         AdicionarOfertaNaLista(ofertaCadastrada);
 
         Console.WriteLine("\nOferta cadastrada com sucesso.");
@@ -72,9 +68,9 @@ public class GerenciadorDeOfertas
 
     public void CarregarOfertas()
     {
-        AdicionarOfertaNaLista(new OfertaViagem(new Rota("São Paulo", "Curitiba"), new DateTime(2024, 1, 15), new DateTime(2024, 1, 20), 500));
-        AdicionarOfertaNaLista(new OfertaViagem(new Rota("Recife", "Rio de Janeiro"), new DateTime(2024, 2, 10), new DateTime(2024, 2, 15), 700));
-        AdicionarOfertaNaLista(new OfertaViagem(new Rota("Acre", "Brasília"), new DateTime(2024, 3, 5), new DateTime(2024, 3, 10), 600));
+        AdicionarOfertaNaLista(new OfertaViagem(new Rota("São Paulo", "Curitiba"), new Periodo(new DateTime(2024, 1, 15), new DateTime(2024, 1, 20)), 500));
+        AdicionarOfertaNaLista(new OfertaViagem(new Rota("Recife", "Rio de Janeiro"), new Periodo(new DateTime(2024, 2, 10), new DateTime(2024, 2, 15)), 700));
+        AdicionarOfertaNaLista(new OfertaViagem(new Rota("Acre", "Brasília"), new Periodo(new DateTime(2024, 3, 5), new DateTime(2024, 3, 10)), 600));
     }
 
     public void ExibirTodasAsOfertas()

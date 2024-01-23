@@ -1,9 +1,10 @@
-﻿using JornadaMilhasV1.Dados;
-using JornadaMilhasV1.Gerencidor;
+﻿using JornadaMilhasV1.Gerencidor;
 using JornadaMilhasV1.Modelos;
 
-var context = new JornadaMilhasContext();
-var ofertasDAL = new DAL(context);
+List<OfertaViagem> listaOfertasViagem = new List<OfertaViagem>();
+var gerenciador = new GerenciadorDeOfertas(listaOfertasViagem);
+
+gerenciador.CarregarOfertas();
 
 while (true)
 {
@@ -15,47 +16,10 @@ while (true)
     switch (opcao)
     {
         case "1":
-            Console.WriteLine("-- Cadastro de ofertas --");
-            Console.WriteLine("Informe a cidade de origem: ");
-            string origem = Console.ReadLine();
-
-            Console.WriteLine("Informe a cidade de destino: ");
-            string destino = Console.ReadLine();
-
-            Console.WriteLine("Informe a data de ida (DD/MM/AAAA): ");
-            DateTime dataIda;
-            if (!DateTime.TryParse(Console.ReadLine(), out dataIda))
-            {
-                Console.WriteLine("Data de ida inválida.");
-                return;
-            }
-
-            Console.WriteLine("Informe a data de volta (DD/MM/AAAA): ");
-            DateTime dataVolta;
-            if (!DateTime.TryParse(Console.ReadLine(), out dataVolta))
-            {
-                Console.WriteLine("Data de volta inválida.");
-                return;
-            }
-
-            Console.WriteLine("Informe o preço: ");
-            double preco;
-            if (!double.TryParse(Console.ReadLine(), out preco))
-            {
-                Console.WriteLine("Formato de preço inválido.");
-                return;
-            }
-
-            OfertaViagem ofertaCadastrada = new OfertaViagem(new Rota(origem, destino), dataIda, dataVolta, preco);
-
-            Console.WriteLine("\nOferta cadastrada com sucesso.");
-            ofertasDAL.AdicionarOfertaViagem(ofertaCadastrada);
+            gerenciador.CadastrarOferta();
             break;
         case "2":
-            foreach (var oferta in ofertasDAL.ObterTodasOfertasViagem())
-            {
-                Console.WriteLine($"Origem: {oferta.Rota}, Destino: {oferta.Rota}, Data de Ida: {oferta.DataIda.ToShortDateString()}, Data de Volta: {oferta.DataVolta.ToShortDateString()}, Preço: {oferta.Preco:C}");
-            }
+            gerenciador.ExibirTodasAsOfertas();
             break;
         case "3":
             Console.WriteLine("Ofertas com maior desconto:");

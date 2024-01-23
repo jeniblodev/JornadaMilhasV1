@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using JornadaMilhasV1.Validador;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JornadaMilhasV1.Modelos;
-public class Rota: IValidavel
+
+public class Rota: Valida
 {
     public int Id { get; set; }
     public string Origem { get; set; }
@@ -19,31 +21,15 @@ public class Rota: IValidavel
 
     }
 
-    public void ValidaRota()
+    protected override void Validar()
     {
         if ((this.Origem is null) || this.Origem.Equals(string.Empty))
         {
-            throw new FormatException("A rota não pode possuir uma origem nula ou vazia.");
+            Erros.RegistrarErro("A rota não pode possuir uma origem nula ou vazia.");
         }
         else if ((this.Destino is null) || this.Destino.Equals(string.Empty))
         {
-            throw new FormatException("A rota não pode possuir um destino nulo ou vazio.");
+            Erros.RegistrarErro("A rota não pode possuir um destino nulo ou vazio.");
         }
-    }
-
-    public bool Validar()
-    {
-        if ((this.Origem is null) || this.Origem.Equals(string.Empty))
-        {
-            Console.WriteLine("A rota não pode possuir uma origem nula ou vazia.");
-            return false;
-        }
-        else if ((this.Destino is null) || this.Destino.Equals(string.Empty))
-        {
-            Console.WriteLine("A rota não pode possuir um destino nulo ou vazio.");
-            return false;
-        }
-
-        return true;
     }
 }

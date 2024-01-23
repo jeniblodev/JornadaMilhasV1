@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JornadaMilhasV1.Validador;
 
 namespace JornadaMilhasV1.Modelos;
-public class Periodo: IValidavel
+
+public class Periodo: Valida
 {
     public int Id { get; set; }
     public DateTime DataInicial { get; set; }
@@ -18,14 +20,13 @@ public class Periodo: IValidavel
         Validar();
     }
 
-    public bool Validar()
+    protected override void Validar()
     {
-        if(DataInicial > DataFinal)
+        if (DataInicial > DataFinal)
         {
-            Console.WriteLine("Erro: Data de ida não pode ser maior que a data de volta.");
-            return false;
+            Erros.RegistrarErro("Erro: Data de ida não pode ser maior que a data de volta.");
         }
 
-        return true;
+        
     }
 }
