@@ -9,7 +9,6 @@ namespace JornadaMilhasV1.Modelos;
 
 public class Periodo: Valida
 {
-    public int Id { get; set; }
     public DateTime DataInicial { get; set; }
     public DateTime DataFinal { get; set; }
 
