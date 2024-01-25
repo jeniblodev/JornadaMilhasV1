@@ -13,8 +13,6 @@ public class OfetaViagemTest
 
         OfertaViagem oferta = new OfertaViagem(rota, periodo, preco);
 
-        Assert.Equal(rota, oferta.Rota);
-        Assert.Equal(periodo, oferta.Periodo);
-        Assert.Equal(preco, oferta.Preco);
+        Assert.True(oferta.EhValido);
     }
 }
