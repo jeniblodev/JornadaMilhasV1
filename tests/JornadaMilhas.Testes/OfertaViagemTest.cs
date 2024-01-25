@@ -2,10 +2,10 @@ using JornadaMilhasV1.Modelos;
 
 namespace JornadaMilhas.Testes;
 
-public class OfetaViagemTest
+public class OfertaViagemTest
 {
     [Fact]
-    public void OfertaViagemConstrutorDeveCriarOferta()
+    public void TestandoOfertaValida()
     {
         Rota rota = new Rota("OrigemTeste", "DestinoTeste");
         Periodo periodo = new Periodo(new DateTime(2024, 1, 1), new DateTime(2024, 1, 5));
