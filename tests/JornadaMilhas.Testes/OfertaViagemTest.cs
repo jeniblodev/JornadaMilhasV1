@@ -32,6 +32,7 @@ public class OfertaViagemTest
 
         //assert
         Assert.Contains("A oferta de viagem não possui rota ou período válidos.", oferta.Erros.Sumario);
+        Assert.False(oferta.EhValido);
 
     }
 }
