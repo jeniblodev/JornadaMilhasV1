@@ -8,6 +8,16 @@ public class OfertaViagem: Valida
     public Rota Rota { get; set; }
     public Periodo Periodo { get; set; }
     public double Preco { get; set; }
+    private double desconto;
+    public double Desconto
+    {
+        get { return desconto; }
+        set
+        {
+            desconto = value;
+            AplicarDesconto();
+        }
+    }
 
     public OfertaViagem(Rota rota, Periodo periodo, double preco)
     {
@@ -15,6 +25,11 @@ public class OfertaViagem: Valida
         Periodo = periodo;
         Preco = preco;
         Validar();
+    }
+
+    private void AplicarDesconto()
+    {
+        Preco -= desconto;
     }
 
     public override string ToString()
