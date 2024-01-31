@@ -54,5 +54,23 @@ public class OfertaViagemConstrutor
         Assert.Contains("O preço da oferta de viagem deve ser maior que zero.", oferta.Erros.Sumario);
     }
 
+    [Fact]
+    public void RetornaPrecoAtualizadoQuandoAplicadoDesconto()
+    {
+        //arrange
+        Rota rota = new Rota("OrigemA", "DestinoB");
+        Periodo periodo = new Periodo(new DateTime(2024, 05, 01), new DateTime(2024, 05, 10));
+        double precoOriginal = 100.00;
+        double desconto = 20.00;
+        double precoComDesconto = precoOriginal - desconto;
+
+
+        //act
+        OfertaViagem ofertaViagem = new OfertaViagem(rota, periodo, precoOriginal) { Desconto = desconto };
+
+        //assert
+        Assert.Equal(precoComDesconto, ofertaViagem.Preco);
+    }
+
 
 }
