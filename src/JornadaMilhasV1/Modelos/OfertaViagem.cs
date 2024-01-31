@@ -8,6 +8,7 @@ public class OfertaViagem: Valida
     public int Id { get; set; }
     public Rota Rota { get; set; }
     public Periodo Periodo { get; set; }
+    public bool Ativa { get; set; } = true;
     public double Preco { get; set; }
     private double desconto;
     public double Desconto

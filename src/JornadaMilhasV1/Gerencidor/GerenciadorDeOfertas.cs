@@ -65,6 +65,19 @@ public class GerenciadorDeOfertas
 
     }
 
+    public IEnumerable<OfertaViagem> RecuperaOfertas(Func<OfertaViagem, bool> filtro)
+    {
+        return ofertaViagem
+            //.Where(o => o.Ativa)
+            .Where(filtro);
+    }
+
+    public OfertaViagem? RecuperaMaiorDesconto(Func<OfertaViagem, bool> filtro) => 
+        ofertaViagem
+            .Where(o => o.Ativa)
+            .Where(filtro)
+            .OrderBy(o => o.Preco)
+            .FirstOrDefault();
 
     public void CarregarOfertas()
     {
