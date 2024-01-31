@@ -4,6 +4,7 @@ namespace JornadaMilhasV1.Modelos;
 
 public class OfertaViagem: Valida
 {
+    public const double DESCONTO_MAXIMO = 0.7;
     public int Id { get; set; }
     public Rota Rota { get; set; }
     public Periodo Periodo { get; set; }
@@ -15,7 +16,15 @@ public class OfertaViagem: Valida
         set
         {
             desconto = value;
-            Preco -= desconto;
+            if (desconto >= Preco)
+            {
+                Preco *= (1 - DESCONTO_MAXIMO);
+                /*Preco *= 0.3;*/
+            } else
+            {
+                Preco -= desconto;
+            }
+            
         }
     }
 
@@ -34,7 +43,7 @@ public class OfertaViagem: Valida
 
     protected override void Validar()
     {
-        if (!Periodo.EhValido)
+        if (Periodo != null && !Periodo.EhValido)
         {
             Erros.RegistrarErro(Periodo.Erros.Sumario);
         } 
