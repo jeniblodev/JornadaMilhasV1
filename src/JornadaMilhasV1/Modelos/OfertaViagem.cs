@@ -15,7 +15,7 @@ public class OfertaViagem: Valida
         set
         {
             desconto = value;
-            AplicarDesconto();
+            Preco -= desconto;
         }
     }
 
@@ -25,11 +25,6 @@ public class OfertaViagem: Valida
         Periodo = periodo;
         Preco = preco;
         Validar();
-    }
-
-    private void AplicarDesconto()
-    {
-        Preco -= desconto;
     }
 
     public override string ToString()

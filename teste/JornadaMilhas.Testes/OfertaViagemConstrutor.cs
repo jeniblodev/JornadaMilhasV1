@@ -63,13 +63,14 @@ public class OfertaViagemConstrutor
         double precoOriginal = 100.00;
         double desconto = 20.00;
         double precoComDesconto = precoOriginal - desconto;
-
+        OfertaViagem ofertaViagem = new OfertaViagem(rota, periodo, precoOriginal);
 
         //act
-        OfertaViagem ofertaViagem = new OfertaViagem(rota, periodo, precoOriginal) { Desconto = desconto };
+        ofertaViagem.Desconto = desconto;
 
         //assert
         Assert.Equal(precoComDesconto, ofertaViagem.Preco);
+        // Assert.Equal(desconto, ofertaViagem.Desconto); // lógico
     }
 
 
